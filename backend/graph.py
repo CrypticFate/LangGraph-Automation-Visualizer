@@ -32,7 +32,18 @@ def generate_topic(state: EssayState):
     prompt = "Generate a single, complex UPSC essay topic on social or economic issues. Output ONLY the topic text."
     time.sleep(4)
     response = llm.invoke(prompt)
-    return {"topic": response.content.strip(), "revision_count": 0}
+    content = response.content
+    if isinstance(content, list):
+        extracted_parts = []
+        for part in content:
+            if isinstance(part, dict) and "text" in part:
+                extracted_parts.append(part["text"])
+            elif isinstance(part, str):
+                extracted_parts.append(part)
+            else:
+                extracted_parts.append(str(part))
+        content = " ".join(extracted_parts)
+    return {"topic": content.strip(), "revision_count": 0}
 
 def collect_essay(state: EssayState):
     """
@@ -52,8 +63,19 @@ def eval_clarity(state: EssayState):
     """
     time.sleep(2)
     response = llm.invoke(prompt)
+    content = response.content
+    if isinstance(content, list):
+        extracted_parts = []
+        for part in content:
+            if isinstance(part, dict) and "text" in part:
+                extracted_parts.append(part["text"])
+            elif isinstance(part, str):
+                extracted_parts.append(part)
+            else:
+                extracted_parts.append(str(part))
+        content = " ".join(extracted_parts)
     try:
-        score = int(''.join(filter(str.isdigit, response.content)))
+        score = int(''.join(filter(str.isdigit, content)))
     except:
         score = 0
     return {"clarity_score": score}
@@ -70,8 +92,19 @@ def eval_depth(state: EssayState):
     """
     time.sleep(2)
     response = llm.invoke(prompt)
+    content = response.content
+    if isinstance(content, list):
+        extracted_parts = []
+        for part in content:
+            if isinstance(part, dict) and "text" in part:
+                extracted_parts.append(part["text"])
+            elif isinstance(part, str):
+                extracted_parts.append(part)
+            else:
+                extracted_parts.append(str(part))
+        content = " ".join(extracted_parts)
     try:
-        score = int(''.join(filter(str.isdigit, response.content)))
+        score = int(''.join(filter(str.isdigit, content)))
     except:
         score = 0
     return {"depth_score": score}
@@ -87,8 +120,19 @@ def eval_vocab(state: EssayState):
     """
     time.sleep(2)
     response = llm.invoke(prompt)
+    content = response.content
+    if isinstance(content, list):
+        extracted_parts = []
+        for part in content:
+            if isinstance(part, dict) and "text" in part:
+                extracted_parts.append(part["text"])
+            elif isinstance(part, str):
+                extracted_parts.append(part)
+            else:
+                extracted_parts.append(str(part))
+        content = " ".join(extracted_parts)
     try:
-        score = int(''.join(filter(str.isdigit, response.content)))
+        score = int(''.join(filter(str.isdigit, content)))
     except:
         score = 0
     return {"vocab_score": score}
@@ -109,7 +153,18 @@ def generate_feedback(state: EssayState):
     """
     time.sleep(2)
     response = llm.invoke(prompt)
-    return {"feedback": response.content}
+    content = response.content
+    if isinstance(content, list):
+        extracted_parts = []
+        for part in content:
+            if isinstance(part, dict) and "text" in part:
+                extracted_parts.append(part["text"])
+            elif isinstance(part, str):
+                extracted_parts.append(part)
+            else:
+                extracted_parts.append(str(part))
+        content = " ".join(extracted_parts)
+    return {"feedback": content}
 
 def check_pass_fail(state: EssayState):
     if state['total_score'] >= 10:

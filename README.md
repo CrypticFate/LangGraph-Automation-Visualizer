@@ -13,6 +13,11 @@ A real-time AI-powered essay evaluation system built with **LangGraph**, **FastA
 -   **Automated Scoring**: Aggregates scores and determines pass/fail status.
 -   **Detailed Feedback**: Generates actionable improvement tips for low scores.
 
+## 📸 Screenshots
+
+![Dashboard Workflow](image.png)
+![Evaluation Process](image%20copy.png)
+
 ## 🛠️ Tech Stack
 
 -   **Frontend**: React, Vite, React Flow, Tailwind CSS, Lucide React
